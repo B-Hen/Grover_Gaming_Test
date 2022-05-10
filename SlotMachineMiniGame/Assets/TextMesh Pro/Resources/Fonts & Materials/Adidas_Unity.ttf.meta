@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2d5b756ba1b826b48b69c0ff24fdc08a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Adidas Unity
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 73ce5e4fe2f13c34d81e172a4ec6522f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
