@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ChestScript : MonoBehaviour
 {
@@ -14,11 +15,18 @@ public class ChestScript : MonoBehaviour
     private float moneyAmount;
     private Renderer objectRenderer;
 
+    //get the box collider
     [SerializeField]
     BoxCollider2D objectCollider;
 
     //orginial color
     private Color ogColor;
+
+    //get the winning list
+    List<float> winnings;
+
+    //get the text
+    private TextMeshProUGUI CurrentWinnings;
 
     //property
     public float MoneyAmount
@@ -37,11 +45,13 @@ public class ChestScript : MonoBehaviour
         //get the object renderer
         objectRenderer = this.GetComponent<Renderer>();
         ogColor = objectRenderer.material.GetColor("_Color");
-        Debug.Log(OGColor);
 
         //change the color of the object and disable it for the round
         objectRenderer.material.SetColor("_Color", Color.gray);
         objectCollider.enabled = false;
+
+        //get the winnings
+        winnings = GameObject.Find("PlayLogicManager").GetComponent<Play_Money_Amounts>().winnings;
     }
 
     //check to see if the chest has been clicke
@@ -50,5 +60,19 @@ public class ChestScript : MonoBehaviour
         //change the color of the object and disable it for the round
         objectRenderer.material.SetColor("_Color", Color.gray);
         objectCollider.enabled = false;
+
+        if(winnings.Count == 0)
+        {
+            GameObject.Find("ChestWinningText").GetComponent<TextMeshProUGUI>().text = "POOPER";
+        }
+        else
+        {
+            //make text reflect the current winnings
+            GameObject.Find("ChestWinningText").GetComponent<TextMeshProUGUI>().text = "Current Winnings: $" +
+                winnings[0];
+
+            //remove the amount from the list
+            winnings.RemoveAt(0);
+        }
     }
 }

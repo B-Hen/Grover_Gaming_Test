@@ -34,35 +34,35 @@ public class Increase_Decrease_Denomination : MonoBehaviour
     public void IncreaseDenomination()
     {
         //first check to see if the index is the last elemtent in the array
-        if(index == denominations.Length-1)
+        if(SceneManger.GetComponent<SetUp>().index == denominations.Length-1)
         {
-            index = denominations.Length - 1;
+            SceneManger.GetComponent<SetUp>().index = denominations.Length - 1;
         }
         //else increase the index
         else
         {
-            index++;
+            SceneManger.GetComponent<SetUp>().index++;
         }
 
         //Update the current denomination text
-        CurrentDenomination.text = "Current Denomination $" + denominations[index];
+        CurrentDenomination.text = "Current Denomination $" + denominations[SceneManger.GetComponent<SetUp>().index];
     }
 
     //method to decrease the denomination
     public void DecreaseDenomination()
     {
         //first check to see if the index is the last elemtent in the array
-        if (index == 0)
+        if (SceneManger.GetComponent<SetUp>().index == 0)
         {
-            index = 0;
+            SceneManger.GetComponent<SetUp>().index = 0;
         }
         //else increase the index
         else
         {
-            index--;
+            SceneManger.GetComponent<SetUp>().index--;
         }
 
         //Update the current denomination text
-        CurrentDenomination.text = "Current Denomination $" + denominations[index];
+        CurrentDenomination.text = "Current Denomination $" + denominations[SceneManger.GetComponent<SetUp>().index];
     }
 }
