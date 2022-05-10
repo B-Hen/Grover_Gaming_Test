@@ -42,6 +42,7 @@ public class Increase_Decrease_Denomination : MonoBehaviour
         else
         {
             SceneManger.GetComponent<SetUp>().index++;
+            GameObject.Find("PlayLogicManager").GetComponent<Play_Money_Amounts>().CanPlay();
         }
 
         //Update the current denomination text
@@ -60,6 +61,7 @@ public class Increase_Decrease_Denomination : MonoBehaviour
         else
         {
             SceneManger.GetComponent<SetUp>().index--;
+            GameObject.Find("PlayLogicManager").GetComponent<Play_Money_Amounts>().CanPlay();
         }
 
         //Update the current denomination text

@@ -63,13 +63,28 @@ public class ChestScript : MonoBehaviour
 
         if(winnings.Count == 0)
         {
-            GameObject.Find("ChestWinningText").GetComponent<TextMeshProUGUI>().text = "POOPER";
+            //update the current balance
+            GameObject.Find("SceneManager").GetComponent<SetUp>().currentBalance +=
+                GameObject.Find("SceneManager").GetComponent<SetUp>().lastGamesWinnings;
+
+            GameObject.Find("CurrentBalanceText").GetComponent<TextMeshProUGUI>().text =
+                string.Format("Current Balance: {0:C}",
+                GameObject.Find("SceneManager").GetComponent<SetUp>().currentBalance);
+
+            GameObject.Find("ChestWinningText").GetComponent<TextMeshProUGUI>().text = "Hit POOPER";
+            GameObject.Find("PlayLogicManager").GetComponent<Play_Money_Amounts>().Reset();
         }
         else
         {
             //make text reflect the current winnings
-            GameObject.Find("ChestWinningText").GetComponent<TextMeshProUGUI>().text = "Current Winnings: $" +
-                winnings[0];
+            GameObject.Find("ChestWinningText").GetComponent<TextMeshProUGUI>().text = "Current Winnings: " + string.Format("{0:C}"
+                , winnings[0]);
+
+            //add the total to the last game winnings and update the text
+            GameObject.Find("SceneManager").GetComponent<SetUp>().lastGamesWinnings += winnings[0];
+            GameObject.Find("LastGameWinningsText").GetComponent<TextMeshProUGUI>().text =
+                string.Format("Last Game Winnings: {0:C}",
+                GameObject.Find("SceneManager").GetComponent<SetUp>().lastGamesWinnings);
 
             //remove the amount from the list
             winnings.RemoveAt(0);
