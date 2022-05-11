@@ -16,6 +16,9 @@ public class SetUp : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI CurrentBalace, CurrentDemomination, LastGameWinnings;
 
+    [SerializeField]
+    AudioSource exitSound;
+
     //set up some values to begin with
     public float currentBalance;
     public float[] demonination;
@@ -35,6 +38,25 @@ public class SetUp : MonoBehaviour
 
         lastGamesWinnings = 0.00f;
         LastGameWinnings.text = LastGameWinnings.text + string.Format(" {0:C}", lastGamesWinnings);
+    }
+
+    private void Update()
+    {
+        //Check to see if user has pressed the escape key
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            StartCoroutine(PlayExitSoung());
+        }
+    }
+
+    //method to play exit sound before exit
+    IEnumerator PlayExitSoung()
+    {
+        exitSound.Play();
+        yield return new WaitWhile(() => exitSound.isPlaying);
+
+        //after sound have finished exit the game
+        Application.Quit();
     }
 
 }

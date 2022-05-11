@@ -28,6 +28,12 @@ public class ChestScript : MonoBehaviour
     //get the text
     private TextMeshProUGUI CurrentWinnings;
 
+    [SerializeField]
+    Animator anim;
+
+    [SerializeField]
+    AudioSource soundEffect, pooperEffect;
+
     //property
     public float MoneyAmount
     {
@@ -57,12 +63,16 @@ public class ChestScript : MonoBehaviour
     //check to see if the chest has been clicke
     public void OnMouseDown()
     {
+        anim.SetBool("Spin", true);
+
         //change the color of the object and disable it for the round
         objectRenderer.material.SetColor("_Color", Color.gray);
         objectCollider.enabled = false;
 
         if(winnings.Count == 0)
         {
+            pooperEffect.Play();
+            anim.SetBool("OpenAir", true);
             //update the current balance
             GameObject.Find("SceneManager").GetComponent<SetUp>().currentBalance +=
                 GameObject.Find("SceneManager").GetComponent<SetUp>().lastGamesWinnings;
@@ -76,6 +86,8 @@ public class ChestScript : MonoBehaviour
         }
         else
         {
+            soundEffect.Play();
+            anim.SetBool("OpenMoney", true);
             //make text reflect the current winnings
             GameObject.Find("ChestWinningText").GetComponent<TextMeshProUGUI>().text = "Current Winnings: " + string.Format("{0:C}"
                 , winnings[0]);

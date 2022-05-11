@@ -58,8 +58,10 @@ public class Play_Money_Amounts : MonoBehaviour
         //make it so you can't click any of the chest and they are grayed out
         for (int i = 0; i < chest.Length; i++)
         {
-            chest[i].GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+            chest[i].GetComponent<Renderer>().material.SetColor("_Color", Color.white);
             chest[i].GetComponent<BoxCollider2D>().enabled = true;
+            chest[i].GetComponent<Animator>().Rebind();
+            chest[i].GetComponent<Animator>().Update(0f);
         }
 
         //diable all the buttons
@@ -187,9 +189,9 @@ public class Play_Money_Amounts : MonoBehaviour
     {
         //check to see if the play button can be enabled again
         if (SceneManager.GetComponent<SetUp>().demonination[SceneManager.GetComponent<SetUp>().index] >
-            SceneManager.GetComponent<SetUp>().currentBalance)
+            SceneManager.GetComponent<SetUp>().currentBalance && CurrentWinnings.text != "")
         {
-            CurrentWinnings.text = "Hit POOPER and Balance to low, try again next time when you have more money";
+            CurrentWinnings.text = "Hit POOPER and Balance to low, try again with different denimation or when you have more money";
         }
         else
         {

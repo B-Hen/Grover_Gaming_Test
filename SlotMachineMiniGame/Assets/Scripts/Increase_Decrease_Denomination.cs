@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Increase_Decrease_Denomination : MonoBehaviour
@@ -17,7 +18,10 @@ public class Increase_Decrease_Denomination : MonoBehaviour
 
     //variable for the text on screen
     [SerializeField]
-    TextMeshProUGUI CurrentDenomination;
+    TextMeshProUGUI CurrentDenomination, CurrentWinnings;
+
+    [SerializeField]
+    Button playButton;
 
     //variable to hold the index and denomination numbers
     int index;
@@ -42,11 +46,21 @@ public class Increase_Decrease_Denomination : MonoBehaviour
         else
         {
             SceneManger.GetComponent<SetUp>().index++;
-            GameObject.Find("PlayLogicManager").GetComponent<Play_Money_Amounts>().CanPlay();
+        }
+
+        if (SceneManger.GetComponent<SetUp>().demonination[SceneManger.GetComponent<SetUp>().index] >
+            SceneManger.GetComponent<SetUp>().currentBalance)
+        {
+            CurrentWinnings.text = "Balance to low, try again when you have more money";
+        }
+        else
+        {
+            playButton.enabled = true;
         }
 
         //Update the current denomination text
-        CurrentDenomination.text = "Current Denomination $" + denominations[SceneManger.GetComponent<SetUp>().index];
+        CurrentDenomination.text = string.Format("Current Denomination {0:C}",
+            denominations[SceneManger.GetComponent<SetUp>().index]);
     }
 
     //method to decrease the denomination
@@ -61,10 +75,21 @@ public class Increase_Decrease_Denomination : MonoBehaviour
         else
         {
             SceneManger.GetComponent<SetUp>().index--;
-            GameObject.Find("PlayLogicManager").GetComponent<Play_Money_Amounts>().CanPlay();
+            //GameObject.Find("PlayLogicManager").GetComponent<Play_Money_Amounts>().CanPlay();
+        }
+
+        if(SceneManger.GetComponent<SetUp>().demonination[SceneManger.GetComponent<SetUp>().index] > 
+            SceneManger.GetComponent<SetUp>().currentBalance)
+        {
+            CurrentWinnings.text = "Balance to low, try again when you have more money";
+        }
+        else
+        {
+            playButton.enabled = true;
         }
 
         //Update the current denomination text
-        CurrentDenomination.text = "Current Denomination $" + denominations[SceneManger.GetComponent<SetUp>().index];
+        CurrentDenomination.text = string.Format("Current Denomination {0:C}", 
+            denominations[SceneManger.GetComponent<SetUp>().index]);
     }
 }
